@@ -1,8 +1,6 @@
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-#[cfg(feature = "yew-types")]
-use yew::NodeRef;
 
 #[wasm_bindgen]
 extern "C" {
@@ -12,28 +10,25 @@ extern "C" {
     #[wasm_bindgen(method, getter)]
     pub fn dragging(this: &Drake) -> bool;
 
+    #[wasm_bindgen(method)]
+    pub fn end(this: &Drake);
+
     #[wasm_bindgen(method, getter = containers)]
-    fn containers_getter(this: &Drake) -> JsValue;
+    fn containers_getter_impl(this: &Drake) -> JsValue;
 
     #[wasm_bindgen(method, setter = containers)]
-    fn containers_setter(this: &Drake, val: Box<[JsValue]>);
+    fn containers_setter_impl(this: &Drake, val: Box<[JsValue]>);
+
+    #[wasm_bindgen(method, js_name = start)]
+    fn start_impl(this: &Drake, item: JsValue) -> bool;
+
 }
 
 impl Drake {
     pub fn containers(&self) -> Vec<JsValue> {
-        let containers = self.containers_getter();
+        let containers = self.containers_getter_impl();
         let containers = Array::from(&containers);
         containers.to_vec()
-    }
-
-    #[cfg(feature = "yew-types")]
-    pub fn containers_node_refs(&self) -> Vec<NodeRef> {
-        let containers = self.containers_getter();
-        Array::from(&containers)
-            .iter()
-            .map()
-            .map(NodeRef::from)
-            .collect()
     }
 
     pub fn set_containers<T>(&mut self, objs: &[&T])
@@ -41,6 +36,14 @@ impl Drake {
         T: JsCast + Clone,
     {
         let obj_array = objs.iter().cloned().map(JsValue::from).collect();
-        self.containers_setter(obj_array);
+        self.containers_setter_impl(obj_array);
+    }
+
+    pub fn start<T>(&mut self, item: &T)
+    where
+        T: JsCast + Clone,
+    {
+        let item = JsValue::from(item);
+        self.start_impl(item);
     }
 }
