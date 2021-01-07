@@ -31,11 +31,12 @@ impl Drake {
         containers.to_vec()
     }
 
-    pub fn set_containers<T>(&mut self, objs: &[&T])
+    pub fn set_containers<T>(&mut self, objs: &[T])
     where
         T: JsCast + Clone,
     {
-        let obj_array = objs.iter().cloned().map(JsValue::from).collect();
+        let obj_array =
+            objs.iter().cloned().map(|o| JsValue::from(&o)).collect();
         self.containers_setter_impl(obj_array);
     }
 
@@ -47,3 +48,6 @@ impl Drake {
         self.start_impl(item);
     }
 }
+
+#[cfg(test)]
+pub mod test;
