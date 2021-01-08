@@ -19,6 +19,12 @@ extern "C" {
     #[wasm_bindgen(method)]
     pub fn cancel(this: &Drake, revert: bool);
 
+    #[wasm_bindgen(method)]
+    pub fn destroy(this: &Drake);
+
+    #[wasm_bindgen(method)]
+    fn on(this: &Drake, event_type: &str, listener: JsValue);
+
     #[wasm_bindgen(method, getter = containers)]
     fn containers_getter_impl(this: &Drake) -> JsValue;
 
@@ -28,8 +34,8 @@ extern "C" {
     #[wasm_bindgen(method, js_name = start)]
     fn start_impl(this: &Drake, item: JsValue);
 
-    #[wasm_bindgen(method)]
-    fn on(this: &Drake, event_type: &str, listener: JsValue);
+    #[wasm_bindgen(method, js_name = canMove)]
+    fn can_move_impl(this: &Drake, item: JsValue) -> bool;
 }
 
 impl Drake {
@@ -60,10 +66,18 @@ impl Drake {
 
     pub fn start<T>(&mut self, item: &T)
     where
-        T: JsCast + Clone,
+        T: JsCast,
     {
         let item = JsValue::from(item);
         self.start_impl(item);
+    }
+
+    pub fn can_move<T>(&mut self, item: &T) -> bool
+    where
+        T: JsCast,
+    {
+        let item = JsValue::from(item);
+        self.can_move_impl(item)
     }
 
     pub fn on_drag<F: 'static>(&mut self, listener: F)

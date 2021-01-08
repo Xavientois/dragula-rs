@@ -342,3 +342,94 @@ fn cancel_triggers_callback() {
 
     run_dom_test(test, &html);
 }
+
+#[wasm_bindgen_test]
+fn can_move_returns_true_when_appropriate() {
+    console_error_panic_hook::set_once();
+
+    let html = generate_draggable_containers(2, 3);
+
+    let test = |element: &Element| {
+        let containers = element.children();
+        let in_containers: Vec<_> = (0..containers.length())
+            .map(|i| containers.item(i))
+            .map(Option::unwrap)
+            .collect();
+
+        // Exclude first div from in_containers
+        let mut drake = dragula(&in_containers);
+
+        let item = in_containers
+            .first()
+            .unwrap()
+            .first_element_child()
+            .unwrap();
+
+        assert!(drake.can_move(&item));
+    };
+
+    run_dom_test(test, &html);
+}
+
+#[wasm_bindgen_test]
+fn can_move_returns_false_when_appropriate() {
+    console_error_panic_hook::set_once();
+
+    let html = generate_draggable_containers(2, 3);
+
+    let test = |element: &Element| {
+        let containers = element.children();
+        let in_containers: Vec<_> = (0..containers.length())
+            .map(|i| containers.item(i))
+            .map(Option::unwrap)
+            .collect();
+
+        // Exclude first div from in_containers
+        let mut drake = dragula(&in_containers[1..]);
+
+        let item = in_containers
+            .first()
+            .unwrap()
+            .first_element_child()
+            .unwrap();
+
+        assert!(!drake.can_move(&item));
+    };
+
+    run_dom_test(test, &html);
+}
+
+#[wasm_bindgen_test]
+fn destroy_makes_dragging_false() {
+    console_error_panic_hook::set_once();
+
+    let html = generate_draggable_containers(2, 3);
+
+    let test = |element: &Element| {
+        let containers = element.children();
+        let in_containers: Vec<_> = (0..containers.length())
+            .map(|i| containers.item(i))
+            .map(Option::unwrap)
+            .collect();
+
+        let mut drake = dragula(&in_containers);
+
+        let item = in_containers
+            .first()
+            .unwrap()
+            .first_element_child()
+            .unwrap();
+
+        drake.start(&item);
+
+        let dragging = drake.dragging();
+        assert!(dragging);
+
+        drake.destroy();
+
+        let dragging = drake.dragging();
+        assert!(!dragging);
+    };
+
+    run_dom_test(test, &html);
+}
