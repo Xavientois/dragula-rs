@@ -17,13 +17,16 @@ extern "C" {
     pub fn remove(this: &Drake);
 
     #[wasm_bindgen(method)]
-    pub fn cancel(this: &Drake, revert: bool);
-
-    #[wasm_bindgen(method)]
     pub fn destroy(this: &Drake);
 
     #[wasm_bindgen(method)]
     fn on(this: &Drake, event_type: &str, listener: JsValue);
+
+    #[wasm_bindgen(method)]
+    pub fn cancel(this: &Drake);
+
+    #[wasm_bindgen(method, js_name = cancel)]
+    pub fn cancel_with_revert(this: &Drake, revert: bool);
 
     #[wasm_bindgen(method, getter = containers)]
     fn containers_getter_impl(this: &Drake) -> JsValue;
