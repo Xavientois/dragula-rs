@@ -1,4 +1,5 @@
 use crate::closure;
+#[cfg(feature = "js-sys")]
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -43,6 +44,7 @@ extern "C" {
 }
 
 impl Drake {
+    #[cfg(feature = "js-sys")]
     pub fn containers(&self) -> Vec<JsValue> {
         let containers = self.containers_getter_impl();
         let containers = Array::from(&containers);
@@ -58,6 +60,7 @@ impl Drake {
         self.containers_setter_impl(obj_array);
     }
 
+    #[cfg(feature = "js-sys")]
     pub fn add_container<T>(&mut self, obj: T)
     where
         T: JsCast,

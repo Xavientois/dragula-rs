@@ -38,28 +38,28 @@ where
 
 pub fn to_js_1_ret<F: 'static>(listener: F) -> JsValue
 where
-    F: FnMut(JsValue) -> JsValue,
+    F: FnMut(JsValue) -> bool,
 {
     let closure =
-        Closure::wrap(Box::new(listener) as Box<dyn FnMut(JsValue) -> JsValue>);
+        Closure::wrap(Box::new(listener) as Box<dyn FnMut(JsValue) -> bool>);
     closure.into_js_value()
 }
 
 pub fn to_js_2_ret<F: 'static>(listener: F) -> JsValue
 where
-    F: FnMut(JsValue, JsValue) -> JsValue,
+    F: FnMut(JsValue, JsValue) -> bool,
 {
     let closure = Closure::wrap(
-        Box::new(listener) as Box<dyn FnMut(JsValue, JsValue) -> JsValue>
+        Box::new(listener) as Box<dyn FnMut(JsValue, JsValue) -> bool>
     );
     closure.into_js_value()
 }
 
 pub fn to_js_4_ret<F: 'static>(listener: F) -> JsValue
 where
-    F: FnMut(JsValue, JsValue, JsValue, JsValue) -> JsValue,
+    F: FnMut(JsValue, JsValue, JsValue, JsValue) -> bool,
 {
     let closure = Closure::wrap(Box::new(listener)
-        as Box<dyn FnMut(JsValue, JsValue, JsValue, JsValue) -> JsValue>);
+        as Box<dyn FnMut(JsValue, JsValue, JsValue, JsValue) -> bool>);
     closure.into_js_value()
 }
