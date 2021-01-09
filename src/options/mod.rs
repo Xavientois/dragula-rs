@@ -29,14 +29,14 @@ pub enum Direction {
     Horizontal,
 }
 
-impl Direction {
-    pub(super) fn to_str(&self) -> &'static str {
+impl ToString for Direction {
+    fn to_string(&self) -> String {
         const VERTICAL: &str = "vertical";
         const HORIZONTAL: &str = "horizontal";
 
         match self {
-            Direction::Vertical => VERTICAL,
-            Direction::Horizontal => HORIZONTAL,
+            Direction::Vertical => String::from(VERTICAL),
+            Direction::Horizontal => String::from(HORIZONTAL),
         }
     }
 }
@@ -53,6 +53,8 @@ pub struct Options {
     pub direction: Direction,
     pub mirror_container: JsValue,
     pub ignore_input_text_selection: bool,
+    pub slide_factor_x: i32,
+    pub slide_factor_y: i32,
 }
 
 impl Default for Options {
@@ -70,6 +72,8 @@ impl Default for Options {
             // Will default to document.body (avoiding web_sys dependency)
             mirror_container: JsValue::UNDEFINED,
             ignore_input_text_selection: true,
+            slide_factor_x: 0,
+            slide_factor_y: 0,
         }
     }
 }
@@ -92,12 +96,18 @@ pub struct OptionsImpl {
     #[wasm_bindgen(js_name = removeOnSpill)]
     pub remove_on_spill: bool,
 
-    pub direction: &'static str,
+    direction: String,
 
     mirror_container_elem: JsValue,
 
     #[wasm_bindgen(js_name = ignoreInputTextSelection)]
     pub ignore_input_text_selection: bool,
+
+    #[wasm_bindgen(js_name = slideFactorX)]
+    pub slide_factor_x: i32,
+
+    #[wasm_bindgen(js_name = slideFactorY)]
+    pub slide_factor_y: i32,
 }
 
 impl From<Options> for OptionsImpl {
@@ -112,8 +122,10 @@ impl From<Options> for OptionsImpl {
             copy_sort_source: options.copy_sort_source,
             revert_on_spill: options.revert_on_spill,
             remove_on_spill: options.remove_on_spill,
-            direction: options.direction.to_str(),
+            direction: options.direction.to_string(),
             ignore_input_text_selection: options.ignore_input_text_selection,
+            slide_factor_x: options.slide_factor_x,
+            slide_factor_y: options.slide_factor_y,
         }
     }
 }
@@ -185,6 +197,16 @@ impl OptionsImpl {
     #[wasm_bindgen(setter = mirrorContainer)]
     pub fn set_mirror_container_elem(&mut self, val: JsValue) {
         self.mirror_container_elem = val;
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn direction(&self) -> String {
+        self.direction.clone()
+    }
+
+    #[wasm_bindgen(setter)]
+    pub fn set_direction(&mut self, val: String) {
+        self.direction = val;
     }
 }
 

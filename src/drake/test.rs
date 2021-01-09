@@ -119,6 +119,7 @@ fn set_containers_after() {
 }
 
 #[wasm_bindgen_test]
+#[cfg(feature = "js-sys")]
 fn add_containers_individually() {
     console_error_panic_hook::set_once();
 
