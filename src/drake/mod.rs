@@ -1,3 +1,4 @@
+use crate::closure;
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -89,11 +90,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "drag";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_2(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -104,10 +101,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "dragend";
 
-        let closure =
-            Closure::wrap(Box::new(listener) as Box<dyn FnMut(JsValue)>);
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_1(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -118,10 +112,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "drop";
 
-        let closure = Closure::wrap(Box::new(listener)
-            as Box<dyn FnMut(JsValue, JsValue, JsValue, JsValue)>);
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_4(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -132,11 +123,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "cancel";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -147,11 +134,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "remove";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -162,11 +145,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "shadow";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -177,11 +156,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "over";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -192,11 +167,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "out";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
@@ -207,11 +178,7 @@ impl Drake {
     {
         const EVENT_NAME: &str = "cloned";
 
-        let closure = Closure::wrap(
-            Box::new(listener) as Box<dyn FnMut(JsValue, JsValue, JsValue)>
-        );
-
-        let listener = closure.into_js_value();
+        let listener = closure::to_js_3(listener);
 
         self.on(EVENT_NAME, listener);
     }
