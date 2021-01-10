@@ -1,5 +1,9 @@
 # dragula
 
+[![](http://meritbadge.herokuapp.com/dragula)](https://crates.io/crates/dragula)
+![GitHub](https://img.shields.io/github/license/Xavientois/dragula-rs)
+![GitHub Workflow Status](https://github.com/Xavientois/dragula-rs/workflows/tests/badge.svg)
+
 Drag and drop so simple it hurts
 
 Wrapper for the [Dragula](https://bevacqua.github.io/dragula/) Javascript library.
