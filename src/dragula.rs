@@ -73,7 +73,7 @@ pub fn dragula_options<T>(objs: &[T], options: Options) -> Drake
 where
     T: JsCast + Clone,
 {
-    let obj_array = objs.iter().cloned().map(|o| JsValue::from(&o)).collect();
+    let obj_array = objs.iter().map(JsValue::from).collect();
     let options = OptionsImpl::from(options);
     let drake = wasm_dragula(obj_array, options);
     drake.into()
