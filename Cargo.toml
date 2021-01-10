@@ -27,6 +27,8 @@ js-sys = "0.3"
 version = "0.3"
 features = [
   'Document',
+  'DomTokenList',
+  'Element',
   'HtmlElement',
   'HtmlCollection',
   'Window',
