@@ -5,7 +5,8 @@ authors = ["Xavientois <joshua.rampersad@hotmail.com>"]
 edition = "2018"
 description = "Rust WASM wrapper for Dragula"
 license = "MIT"
-keywords = ["dragula", "frontend", "web"]
+repository = "https://github.com/Xavientois/dragula-rs"
+keywords = ["dragula", "frontend", "web", "wasm"]
 categories = ["gui", "wasm", "web-programming"]
 
 [features]
