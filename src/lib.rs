@@ -47,7 +47,6 @@
 //!   feature currently just prevents you from getting containers on an existing
 //!   Drake. The main reason you might want to disable this would be to improve compile
 //!   times.
-
 #![doc(
     html_favicon_url = "https://bevacqua.github.io/dragula/resources/icon.svg"
 )]
