@@ -1,10 +1,10 @@
-# dragula
+# Dragula-rs
 
 [![](http://meritbadge.herokuapp.com/dragula)](https://crates.io/crates/dragula)
 ![GitHub](https://img.shields.io/github/license/Xavientois/dragula-rs)
 ![GitHub Workflow Status](https://github.com/Xavientois/dragula-rs/workflows/tests/badge.svg)
 
-Drag and drop so simple it hurts
+> Drag and drop so simple it hurts
 
 Wrapper for the [Dragula](https://bevacqua.github.io/dragula/) Javascript library.
 
@@ -45,11 +45,9 @@ let drake = dragula_options(&[element], options);
 
 ```
 
-## `cargo` Features
+### `cargo` Features
 - **js-sys**: On by default. Can be used to toggle dependencies on the `js-sys`
   crate. Most of this crate relies solely on `wasm-bindgen`, so disabling this
   feature currently just prevents you from getting containers on an existing
   Drake. The main reason you might want to disable this would be to improve compile
   times.
-
-License: MIT
