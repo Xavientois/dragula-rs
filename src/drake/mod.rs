@@ -9,7 +9,8 @@ extern "C" {
     /// Interface provided by Dragula to interact with active drag-and-drop system
     ///
     /// ### Example:
-    /// ```no_run
+    #[cfg_attr(feature = "js-sys", doc = "```no_run")]
+    #[cfg_attr(not(feature = "js-sys"), doc = "```no_compile")]
     /// use dragula::*;
     ///
     /// let doc = web_sys::window().unwrap().document().unwrap();
@@ -90,6 +91,8 @@ extern "C" {
 
 impl Drake {
     /// Gets the active containers currently allowing dragging
+    ///
+    /// Requires that feature `js-sys` be turned on (it is on by default)
     #[cfg(any(feature = "js-sys", test))]
     pub fn containers(&self) -> Vec<JsValue> {
         let containers = self.containers_getter_impl();
@@ -109,6 +112,8 @@ impl Drake {
     }
 
     /// Adds to the list of active containers for dragging
+    ///
+    /// Requires that feature `js-sys` be turned on (it is on by default)
     #[cfg(feature = "js-sys")]
     pub fn add_container<T>(&mut self, obj: T)
     where
