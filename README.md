@@ -1,6 +1,6 @@
 # Dragula-rs
 
-[![](http://meritbadge.herokuapp.com/dragula)](https://crates.io/crates/dragula)
+![Crates.io](https://img.shields.io/crates/v/dragula)
 ![GitHub](https://img.shields.io/github/license/Xavientois/dragula-rs)
 ![GitHub Workflow Status](https://github.com/Xavientois/dragula-rs/workflows/tests/badge.svg)
 
